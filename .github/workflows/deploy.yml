@@ -26,6 +26,33 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Debug repository structure
+        run: |
+          pwd
+          echo "--- root ---"
+          ls -la
+          echo "--- scripts ---"
+          ls -la scripts || true
+          echo "--- assets ---"
+          ls -la assets || true
+          echo "--- assets/fonts ---"
+          ls -la assets/fonts || true
+          echo "--- public ---"
+          ls -la public || true
+          echo "--- src ---"
+          ls -la src || true
+          echo "--- src/content ---"
+          ls -la src/content || true
+          echo "--- src/content/insights ---"
+          ls -la src/content/insights || true
+          echo "--- package.json generate script ---"
+          grep -n "generate:heroes" package.json || true
+          echo "--- package.json type ---"
+          grep -n '"type"' package.json || true
+          echo "--- direct file check ---"
+          test -f scripts/generate-hero.js && echo "FOUND scripts/generate-hero.js" || echo "MISSING scripts/generate-hero.js"
+          test -f assets/fonts/Inter_18pt-Regular.ttf && echo "FOUND font" || echo "MISSING font"
+
       - name: Generate hero images
         run: npm run generate:heroes
 
