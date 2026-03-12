@@ -1,19 +1,19 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
 
   const posts = await getCollection("insights");
 
   return posts.map((post) => ({
-    params: { slug: post.slug },
+    params: { slug: post.id },
     props: { post }
   }));
-
 }
 
 const { post } = Astro.props;
-const { Content } = await post.render();
+
+const { Content } = await render(post);
 ---
 
 <html>
@@ -22,21 +22,44 @@ const { Content } = await post.render();
 <title>{post.data.title}</title>
 
 <meta property="og:title" content={post.data.title} />
-<meta property="og:image" content={`/heroes/${post.slug}.png`} />
+<meta property="og:description" content={post.data.summary} />
+<meta property="og:image" content={`/heroes/${post.id}.png`} />
+
+<style>
+
+body{
+font-family: system-ui;
+max-width: 720px;
+margin:auto;
+padding:60px 20px;
+line-height:1.7;
+font-size:18px;
+}
+
+.hero{
+width:100%;
+border-radius:10px;
+margin-bottom:40px;
+}
+
+h1{
+font-size:40px;
+margin-top:20px;
+}
+
+p{
+margin:18px 0;
+}
+
+</style>
 
 </head>
 
 <body>
 
-<img
-  src={`/heroes/${post.slug}.png`}
-  style="width:100%;max-width:1200px;margin-bottom:40px"
-/>
-
-<h1>{post.data.title}</h1>
+<img class="hero" src={`/heroes/${post.id}.png`} alt="hero image" />
 
 <Content />
 
 </body>
-
 </html>
