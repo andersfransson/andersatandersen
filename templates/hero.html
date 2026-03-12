@@ -1,1 +1,160 @@
+<!DOCTYPE html>
 
+<html>
+<head>
+<meta charset="utf-8">
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+padding:0;
+}
+
+.hero{
+
+width:1200px;
+height:630px;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
+
+padding:110px;
+
+background:#f5f6f7;
+
+font-family: Georgia, "Times New Roman", serif;
+
+position:relative;
+overflow:hidden;
+
+}
+
+/* system architecture pattern */
+
+.hero::before{
+
+content:"";
+
+position:absolute;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:
+
+linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px),
+linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px);
+
+background-size:120px 120px;
+
+opacity:0.4;
+
+}
+
+/* topic */
+
+.topic{
+
+position:relative;
+
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+
+font-size:18px;
+
+letter-spacing:2px;
+
+text-transform:uppercase;
+
+color:#6a6a6a;
+
+margin-bottom:20px;
+
+}
+
+/* title */
+
+.title{
+
+position:relative;
+
+font-size:64px;
+line-height:1.15;
+
+font-weight:600;
+
+color:#222;
+
+max-width:900px;
+
+}
+
+/* subtitle */
+
+.subtitle{
+
+position:relative;
+
+margin-top:35px;
+
+font-size:26px;
+
+color:#555;
+
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+
+}
+
+/* link */
+
+.link{
+
+position:relative;
+
+margin-top:35px;
+
+font-size:20px;
+
+color:#666;
+
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="hero">
+
+<div class="topic">
+{{topic}}
+</div>
+
+<div class="title">
+{{title}}
+</div>
+
+<div class="subtitle">
+A perspective from Patrik Hallén<br>
+Member of Andersen Consulting
+</div>
+
+<div class="link">
+Explore Andersen Consulting globally
+</div>
+
+</div>
+
+</body>
+</html>
