@@ -1,5 +1,5 @@
 {
-  "name": "astro-temp",
+  "name": "extra-equinox",
   "type": "module",
   "version": "0.0.1",
   "engines": {
@@ -9,13 +9,13 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "generate:heroes": "node scripts/generate-hero.js"
   },
   "dependencies": {
-    "@astrojs/mdx": "^5.0.0",
-    "@astrojs/rss": "^4.0.17",
-    "@astrojs/sitemap": "^3.7.1",
     "astro": "^6.0.3",
-    "sharp": "^0.34.3"
+    "satori": "^0.10.0",
+    "@resvg/resvg-js": "^2.4.0",
+    "gray-matter": "^4.0.3"
   }
 }
