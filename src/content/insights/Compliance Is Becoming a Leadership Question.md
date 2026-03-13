@@ -1,3 +1,11 @@
+---
+
+title: Compliance Is Becoming a Leadership Question
+topic: Leadership-Driven Transformation
+summary: Organizations that handle regulatory change well usually share one characteristic. They understand how their critical information is structured, where it resides, and how it connects to business activity.
+date: 2026-03-12
+---
+
 # Compliance Is Becoming a Leadership Question
 
 For a long time, compliance was treated as a specialized discipline.  
