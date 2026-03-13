@@ -1,27 +1,23 @@
 ---
-title: Structure before transformation
-topic: Enterprise Architecture
-summary: Why many transformation initiatives stall when structural clarity is missing.
+
+title: Transformation fails when structure is missing
+topic: Strategy Execution
+summary: Transformation programs often fail not because of strategy but because the organization cannot absorb change.
 date: 2026-03-12
 ---
 
-# Structure before transformation
+# Transformation fails when structure is missing
 
-Most transformation initiatives focus on tools, frameworks and delivery models.
+Transformation has become a permanent management theme.
 
-But the deeper constraint is rarely technology.
+Organizations launch transformation programs to modernize systems, redesign processes and introduce new ways of working.
 
-It is structure.
+Yet many programs stall before delivering their intended impact.
 
-Organizations that lack structural clarity struggle to absorb change.
-Decisions become slower, responsibilities blur, and transformation programs gradually lose momentum.
+The reason is often structural.
 
-Before launching large transformation initiatives, leadership teams should ask a more fundamental question:
+When roles, decision paths and capability ownership are unclear, transformation initiatives struggle to maintain coherence.
 
-**Does the organization itself have the structure required to execute change?**
+Structure does not slow transformation.
 
-Enterprise architecture exists precisely to answer that question.
-
-It provides the structural lens through which strategy, processes, capabilities and systems can be aligned.
-
-Without that structure, transformation becomes motion without direction.
+Done well, it enables it.
