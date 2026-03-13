@@ -31,38 +31,35 @@ const files = fs
 const topicColors = {
   "Enterprise Architecture": "#c8102e",
   "Strategy Execution": "#8a1538",
-  "Operating Model": "#7c2d12"
+  "Operating Model": "#7c2d12",
+  "Leadership-Driven Transformation": "#c8102e"
 };
 
 function wrapTitle(title, maxChars = 32) {
-
   const words = title.split(" ");
-  let lines = [];
+  const lines = [];
   let current = "";
 
   for (const word of words) {
-
     if ((current + word).length > maxChars) {
       lines.push(current.trim());
       current = word + " ";
     } else {
       current += word + " ";
     }
-
   }
 
-  lines.push(current.trim());
-  return lines;
+  if (current.trim()) {
+    lines.push(current.trim());
+  }
 
+  return lines;
 }
 
 async function generate() {
-
   for (const file of files) {
-
     const filepath = path.join(CONTENT_DIR, file);
     const content = fs.readFileSync(filepath, "utf8");
-
     const parsed = matter(content);
 
     const title = parsed.data.title;
@@ -74,7 +71,7 @@ async function generate() {
     }
 
     const slug = file.replace(/\.mdx?$/, "");
-    const heroPath = path.join(OUTPUT_DIR, slug + ".png");
+    const heroPath = path.join(OUTPUT_DIR, `${slug}.png`);
 
     const accent = topicColors[topic] || "#c8102e";
     const titleLines = wrapTitle(title);
@@ -83,19 +80,18 @@ async function generate() {
       {
         type: "div",
         props: {
-
           style: {
             width: "1200px",
             height: "630px",
             display: "flex",
             flexDirection: "row",
-            background: "linear-gradient(135deg,#f7f7f7 0%,#f2f2f2 45%,#ececec 100%)",
+            background:
+              "linear-gradient(135deg,#f7f7f7 0%,#f2f2f2 45%,#ececec 100%)",
             fontFamily: "Inter",
             position: "relative"
           },
 
           children: [
-
             {
               type: "div",
               props: {
@@ -110,7 +106,6 @@ async function generate() {
             {
               type: "div",
               props: {
-
                 style: {
                   display: "flex",
                   flexDirection: "column",
@@ -123,7 +118,6 @@ async function generate() {
                 },
 
                 children: [
-
                   {
                     type: "div",
                     props: {
@@ -166,7 +160,6 @@ async function generate() {
                   {
                     type: "div",
                     props: {
-
                       style: {
                         fontSize: 26,
                         color: "#555",
@@ -175,23 +168,24 @@ async function generate() {
                       },
 
                       children: [
-
-                        {
-                          type: "div",
-                          props: {
-                            children: "A perspective from Patrik Hallén"
-                          }
-                        },
-
                         {
                           type: "div",
                           props: {
                             style: {
                               display: "flex",
-                              gap: 6
+                              gap: 6,
+                              alignItems: "baseline"
                             },
                             children: [
-                              "Partner at ",
+                              {
+                                type: "span",
+                                props: {
+                                  style: {
+                                    color: "#555"
+                                  },
+                                  children: "Anders @"
+                                }
+                              },
                               {
                                 type: "span",
                                 props: {
@@ -205,14 +199,10 @@ async function generate() {
                             ]
                           }
                         }
-
                       ]
-
                     }
                   }
-
                 ]
-
               }
             },
 
@@ -226,15 +216,12 @@ async function generate() {
                   fontSize: 20,
                   color: "#888"
                 },
-                children: "patrikhallen.com"
+                children: "andersatandersen.se"
               }
             }
-
           ]
-
         }
       },
-
       {
         width: 1200,
         height: 630,
@@ -252,11 +239,8 @@ async function generate() {
     const png = resvg.render().asPng();
 
     fs.writeFileSync(heroPath, png);
-
     console.log("Hero generated:", slug);
-
   }
-
 }
 
 generate();
