@@ -2,7 +2,7 @@
 title: "The Real Bottleneck in Compliance Is Not the Report, but the Data"
 topic: "Compliance, data, and organizational structure"
 summary: "Many organizations think compliance becomes difficult when the report must be produced. In reality, the real bottleneck usually appears much earlier, when the organization cannot identify, define, trace, and trust the data behind the reported figures."
-publishDate: "2026-03-13"
+date: 2026-03-13
 author: "Anders @ Andersen Consulting"
 draft: false
 ---
@@ -57,7 +57,7 @@ That does not automatically create usable compliance data.
 
 In fact, the opposite is often true.
 
-Data may exist in several systems at once. The same concept may be defined differently across functions. Business terms may not match system labels. Important transformations may happen in reporting layers or spreadsheets without proper visibility. Ownership may be split between IT, finance, operations, risk, and compliance, with no one responsible for the whole chain.
+Data may exist in several systems at once. The same concept may be defined differently across functions. Business terms may not match system labels. Important transformations may happen in reporting layers or spreadsheets without proper visibility. Ownership may be split between Information Technology (IT), finance, operations, risk, and compliance, with no one responsible for the whole chain.
 
 From a distance, this can look like a reporting problem.
 
@@ -69,7 +69,7 @@ And without shared understanding, reporting turns into reconstruction.
 
 ## Compliance exposes what the organization does not know about itself
 
-This is one of the reasons compliance work often feels disproportionally difficult.
+This is one of the reasons compliance work often feels disproportionately difficult.
 
 The regulation may be clear enough. The reporting template may be clear enough. The authority may even explain what is expected.
 
