@@ -4,6 +4,9 @@ import { getCollection } from "astro:content";
 const posts = (await getCollection("insights"))
   .sort((a,b) => b.data.date - a.data.date);
 
+const featured = posts[0];
+const rest = posts.slice(1);
+
 function readingTime(text){
   const words = text.split(/\s+/).length;
   return Math.ceil(words / 200);
@@ -14,12 +17,13 @@ function readingTime(text){
 <head>
 
 <title>Perspectives — Patrik Hallén</title>
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml" />
 
 <style>
 
 body{
-font-family: system-ui, -apple-system, sans-serif;
-max-width: 900px;
+font-family: system-ui,-apple-system,sans-serif;
+max-width:1000px;
 margin:auto;
 padding:60px 20px;
 line-height:1.6;
@@ -27,11 +31,11 @@ color:#111;
 }
 
 header{
-margin-bottom:60px;
+margin-bottom:70px;
 }
 
 h1{
-font-size:48px;
+font-size:52px;
 margin:0;
 }
 
@@ -40,19 +44,15 @@ color:#666;
 margin-top:10px;
 }
 
-.article{
-margin-bottom:70px;
-}
-
-.article img{
+.featured img{
 width:100%;
 border-radius:12px;
 margin-bottom:20px;
 }
 
-.article h2{
-font-size:28px;
-margin:0 0 10px 0;
+.featured h2{
+font-size:40px;
+margin:10px 0;
 }
 
 .meta{
@@ -63,6 +63,30 @@ margin-bottom:12px;
 
 .summary{
 color:#444;
+max-width:700px;
+}
+
+.list article{
+margin-top:60px;
+}
+
+.list img{
+width:100%;
+border-radius:12px;
+margin-bottom:12px;
+}
+
+.list h3{
+font-size:24px;
+margin:0;
+}
+
+.tag{
+font-size:12px;
+letter-spacing:.06em;
+text-transform:uppercase;
+color:#666;
+margin-right:10px;
 }
 
 a{
@@ -70,17 +94,9 @@ text-decoration:none;
 color:inherit;
 }
 
-a:hover h2{
+a:hover h2,
+a:hover h3{
 text-decoration:underline;
-}
-
-.tag{
-display:inline-block;
-font-size:12px;
-letter-spacing:.05em;
-text-transform:uppercase;
-color:#666;
-margin-right:10px;
 }
 
 </style>
@@ -98,24 +114,61 @@ Ideas on structure, transformation and execution.
 </p>
 
 <p style="color:#777;margin-top:20px;">
-Patrik Hallén  
-<br>
-Member of Andersen Consulting
+Patrik Hallén<br>
+Partner at 
+<a
+href="https://global.andersen.com/consulting"
+target="_blank"
+rel="noopener"
+style="color:#c8102e;font-weight:600;text-decoration:none"
+>
+Andersen Consulting
+</a>
 </p>
 
 </header>
 
-{posts.map(post => {
+<!-- Featured article -->
 
-const minutes = readingTime(post.body);
+<section class="featured">
 
-return (
+<a href={`/insights/${featured.id}`}>
 
-<article class="article">
+<img src={`/heroes/${featured.id}.png`} />
+
+<div class="meta">
+
+<span class="tag">{featured.data.topic}</span>
+
+<span>
+{new Date(featured.data.date).toLocaleDateString("en-GB")}
+</span>
+
+<span> • {readingTime(featured.body)} min read</span>
+
+</div>
+
+<h2>{featured.data.title}</h2>
+
+<p class="summary">
+{featured.data.summary}
+</p>
+
+</a>
+
+</section>
+
+<!-- Remaining articles -->
+
+<section class="list">
+
+{rest.map(post => (
+
+<article>
 
 <a href={`/insights/${post.id}`}>
 
-<img src={`/heroes/${post.id}.png`} alt="hero" />
+<img src={`/heroes/${post.id}.png`} />
 
 <div class="meta">
 
@@ -125,11 +178,11 @@ return (
 {new Date(post.data.date).toLocaleDateString("en-GB")}
 </span>
 
-<span> • {minutes} min read</span>
+<span> • {readingTime(post.body)} min read</span>
 
 </div>
 
-<h2>{post.data.title}</h2>
+<h3>{post.data.title}</h3>
 
 <p class="summary">
 {post.data.summary}
@@ -139,11 +192,9 @@ return (
 
 </article>
 
-)
+))}
 
-})}
+</section>
 
 </body>
-
 </html>
-
