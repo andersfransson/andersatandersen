@@ -28,6 +28,34 @@ const files = fs
   .readdirSync(CONTENT_DIR)
   .filter((f) => f.endsWith(".md") || f.endsWith(".mdx"));
 
+const topicColors = {
+  "Enterprise Architecture": "#c8102e",
+  "Strategy Execution": "#8a1538",
+  "Operating Model": "#7c2d12"
+};
+
+function wrapTitle(title, maxChars = 32) {
+
+  const words = title.split(" ");
+  let lines = [];
+  let current = "";
+
+  for (const word of words) {
+
+    if ((current + word).length > maxChars) {
+      lines.push(current.trim());
+      current = word + " ";
+    } else {
+      current += word + " ";
+    }
+
+  }
+
+  lines.push(current.trim());
+  return lines;
+
+}
+
 async function generate() {
 
   for (const file of files) {
@@ -36,8 +64,9 @@ async function generate() {
     const content = fs.readFileSync(filepath, "utf8");
 
     const parsed = matter(content);
+
     const title = parsed.data.title;
-    const topic = parsed.data.topic || "Perspectives";
+    const topic = parsed.data.topic || "Perspective";
 
     if (!title) {
       console.log("Skipping (no title):", file);
@@ -47,80 +76,165 @@ async function generate() {
     const slug = file.replace(/\.mdx?$/, "");
     const heroPath = path.join(OUTPUT_DIR, slug + ".png");
 
-    if (fs.existsSync(heroPath)) {
-      console.log("Hero already exists:", slug);
-      continue;
-    }
+    const accent = topicColors[topic] || "#c8102e";
+    const titleLines = wrapTitle(title);
 
     const svg = await satori(
       {
         type: "div",
         props: {
+
           style: {
             width: "1200px",
             height: "630px",
-            background: "#f5f5f5",
             display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            padding: "110px",
-            fontFamily: "Inter"
+            flexDirection: "row",
+            background: "linear-gradient(135deg,#f7f7f7 0%,#f2f2f2 45%,#ececec 100%)",
+            fontFamily: "Inter",
+            position: "relative"
           },
+
           children: [
 
             {
               type: "div",
               props: {
                 style: {
-                  fontSize: 18,
-                  letterSpacing: 3,
-                  textTransform: "uppercase",
-                  color: "#777",
-                  marginBottom: 25
-                },
-                children: topic
+                  width: "14px",
+                  height: "100%",
+                  background: accent
+                }
               }
             },
 
             {
               type: "div",
               props: {
-                style: {
-                  fontSize: 64,
-                  lineHeight: 1.15,
-                  fontWeight: 600,
-                  color: "#222",
-                  maxWidth: 900
-                },
-                children: title
-              }
-            },
 
-            {
-              type: "div",
-              props: {
                 style: {
                   display: "flex",
                   flexDirection: "column",
-                  marginTop: 40,
-                  fontSize: 26,
-                  color: "#555"
+                  justifyContent: "center",
+                  paddingLeft: "90px",
+                  paddingRight: "80px",
+                  paddingTop: "80px",
+                  paddingBottom: "80px",
+                  flex: 1
                 },
+
                 children: [
-                  "A perspective from Patrik Hallén",
+
                   {
                     type: "div",
                     props: {
-                      children: "Member of Andersen Consulting"
+                      style: {
+                        fontSize: 18,
+                        letterSpacing: 2,
+                        textTransform: "uppercase",
+                        color: accent,
+                        marginBottom: 28,
+                        fontWeight: 600
+                      },
+                      children: topic
+                    }
+                  },
+
+                  {
+                    type: "div",
+                    props: {
+                      style: {
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 8,
+                        marginBottom: 40
+                      },
+                      children: titleLines.map((line) => ({
+                        type: "div",
+                        props: {
+                          style: {
+                            fontSize: 64,
+                            fontWeight: 600,
+                            lineHeight: 1.1,
+                            color: "#222"
+                          },
+                          children: line
+                        }
+                      }))
+                    }
+                  },
+
+                  {
+                    type: "div",
+                    props: {
+
+                      style: {
+                        fontSize: 26,
+                        color: "#555",
+                        display: "flex",
+                        flexDirection: "column"
+                      },
+
+                      children: [
+
+                        {
+                          type: "div",
+                          props: {
+                            children: "A perspective from Patrik Hallén"
+                          }
+                        },
+
+                        {
+                          type: "div",
+                          props: {
+                            style: {
+                              display: "flex",
+                              gap: 6
+                            },
+                            children: [
+                              "Partner at ",
+                              {
+                                type: "span",
+                                props: {
+                                  style: {
+                                    color: accent,
+                                    fontWeight: 600
+                                  },
+                                  children: "Andersen Consulting"
+                                }
+                              }
+                            ]
+                          }
+                        }
+
+                      ]
+
                     }
                   }
+
                 ]
+
+              }
+            },
+
+            {
+              type: "div",
+              props: {
+                style: {
+                  position: "absolute",
+                  bottom: "28px",
+                  right: "40px",
+                  fontSize: 20,
+                  color: "#888"
+                },
+                children: "patrikhallen.com"
               }
             }
 
           ]
+
         }
       },
+
       {
         width: 1200,
         height: 630,
