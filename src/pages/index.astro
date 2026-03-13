@@ -99,6 +99,35 @@ a:hover h3{
 text-decoration:underline;
 }
 
+footer{
+margin-top:90px;
+padding-top:30px;
+border-top:1px solid #e5e5e5;
+color:#555;
+font-size:15px;
+}
+
+.footer-title{
+font-weight:600;
+color:#111;
+margin-bottom:10px;
+}
+
+.footer-links{
+display:flex;
+flex-direction:column;
+gap:6px;
+}
+
+.footer-links a{
+color:#0a66c2;
+text-decoration:none;
+}
+
+.footer-links a:hover{
+text-decoration:underline;
+}
+
 </style>
 
 </head>
@@ -194,6 +223,24 @@ Andersen Consulting
 ))}
 
 </section>
+
+<footer>
+  <div class="footer-title">Contact</div>
+
+  <div class="footer-links">
+    <div>Anders Fransson</div>
+    <a
+      href="https://www.linkedin.com/in/andersfransson/"
+      target="_blank"
+      rel="noopener"
+    >
+      LinkedIn
+    </a>
+    <a href="mailto:din.epost@domän.se">
+      din.epost@domän.se
+    </a>
+  </div>
+</footer>
 
 </body>
 </html>
